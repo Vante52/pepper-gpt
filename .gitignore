@@ -1,0 +1,31 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Modelos locales y descargas pesadas
+models/
+*.bin
+*.pt
+*.onnx
+
+# Logs de ejecución
+*.log
+host_server.log
+host_brain_orchestrator.log
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
