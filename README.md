@@ -1,4 +1,4 @@
-# 🤖 Pepper Remote Brain Architecture
+# Pepper Remote Brain Architecture
 > **Revitalizando a Pepper (NAOqi 2.5) con Inteligencia Artificial Moderna Distribuida (CUDA, Whisper & Qwen2.5)**
 
 ![Python 2.7](https://img.shields.io/badge/Python-2.7-yellow?logo=python&logoColor=white)
@@ -7,7 +7,7 @@
 ![CUDA](https://img.shields.io/badge/CUDA-Enabled-76B900?logo=nvidia&logoColor=white)
 ![Ollama](https://img.shields.io/badge/LLM-Qwen2.5-black)
 
-## 📡 Arquitectura del Sistema
+## Arquitectura del Sistema
 El sistema delega todo el procesamiento cognitivo pesado a un Host local con aceleración CUDA, resolviendo las limitaciones de hardware del robot sin intervenir su vida autónoma (ALAutonomousLife). El Host y el Robot se comunican mediante Sockets TCP bidireccionales, gestionando micrófonos y síntesis de voz en paralelo con un robusto protocolo **Anti-Eco**.
 
 ```mermaid
@@ -27,7 +27,7 @@ graph TD
     end
 ```
 
-## 🧠 Metodología y Funcionamiento Interno
+## Metodología y Funcionamiento Interno
 
 Este proyecto implementa el concepto de **"Cerebro Remoto"** (Remote Brain Philosophy). Debido a las limitaciones de hardware de la plataforma Pepper v1.7 (procesador Intel Atom legado y entorno cerrado en Python 2.7 / NAOqi 2.5), externalizamos toda la carga cognitiva a un PC Host equipado con aceleración por hardware (NVIDIA CUDA). 
 
@@ -91,8 +91,8 @@ La coordinación del flujo y el tratamiento de señales de audio se realiza en e
      Host (Cerebro)                                         Robot (Pepper)
          │                                                        │
          ├───[1] Envía oraciones generadas por la IA ────────────>│
-         │                                                        │ 🗣️ Habla bloqueante
-         ├───[2] Envía bandera '__END__' ────────────────────────>│ 🏃 Gestos automáticos
+         │                                                        │  Habla bloqueante
+         ├───[2] Envía bandera '__END__' ────────────────────────>│  Gestos automáticos
          │                                                        │
          │   [3] Hilo de micrófonos bloqueado                     │ (Termina de hablar)
          │       (Acumulando eco en búfer TCP de red)             │
@@ -113,7 +113,7 @@ La coordinación del flujo y el tratamiento de señales de audio se realiza en e
 
 ---
 
-## ⚙️ Requisitos del Sistema
+## Requisitos del Sistema
 
 **Hardware:**
 * **Robot:** SoftBank Pepper v1.7.
@@ -125,7 +125,7 @@ La coordinación del flujo y el tratamiento de señales de audio se realiza en e
 * **Host PC:** Ubuntu 24.04, Python 3.10+, Ollama instalado como servicio de sistema.
 * **Dependencias Host:** `faster-whisper`, `numpy`, `requests`.
 
-## 📁 Estructura del Repositorio
+## Estructura del Repositorio
 
 El proyecto está estructurado de forma modular para desacoplar claramente el entorno legacy de Pepper del backend de procesamiento pesado del Host:
 
@@ -150,7 +150,7 @@ pepper_IA/
 
 ---
 
-## 🛠️ Guía de Instalación y Setup
+## Guía de Instalación y Setup
 
 ### Configuración en el Host (Ubuntu 24.04 + RTX GPU)
 1.  **Instalar y levantar Ollama**:
@@ -174,7 +174,7 @@ scp -r robot/ nao@<IP_DE_PEPPER>:/home/nao/
 
 ---
 
-## 🚀 Runbook (Orden de Ejecución Crítico)
+## Runbook (Orden de Ejecución Crítico)
 
 Para evitar bloqueos de sockets por *Timeouts* y garantizar que la sincronización se establezca limpiamente, sigue **estrictamente** este orden:
 
@@ -204,7 +204,7 @@ Para evitar bloqueos de sockets por *Timeouts* y garantizar que la sincronizaci�
     ```
     *¡Comenzará la transmisión en tiempo real de audio!*
 
-## 🔧 Troubleshooting (Solución de Problemas Frecuentes)
+## Troubleshooting (Solución de Problemas Frecuentes)
 
 * **Problema:** La telemetría de audio se congela en el Host o NAOqi mata el proceso en el robot tras unos segundos.
   * **Causa:** `ALAudioDevice` es estricto en tiempo real. Si el callback `processRemote` se demora por cuellos de botella de red, NAOqi crashea el módulo. Adicionalmente, el motor nativo `ALDialog` puede acaparar el micrófono.
